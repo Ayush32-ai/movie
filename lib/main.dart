@@ -362,7 +362,6 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 }
 
-// Movie Details Screen (Displays Movie Details)
 class DetailsScreen extends StatelessWidget {
   final dynamic movie;
 
@@ -377,23 +376,25 @@ class DetailsScreen extends StatelessWidget {
         elevation: 0,
         title: Text(movie['name'], style: TextStyle(color: Colors.white)),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            movie['image']?['original'] != null
-                ? Image.network(movie['image']?['original'] ?? '')
+      body: ListView(
+        padding: EdgeInsets.all(16.0),
+        children: [
+          Center(
+            child: movie['image']?['original'] != null
+                ? SizedBox(
+                    width: 150,
+                    height: 150,
+                    child: Image.network(movie['image']?['original'] ?? ''),
+                  )
                 : Icon(Icons.image, color: Colors.grey, size: 100),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                movie['summary'] ?? 'No description available',
-                style: TextStyle(color: Colors.white),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ],
-        ),
+          ),
+          SizedBox(height: 16),
+          Text(
+            movie['summary'] ?? 'No description available',
+            style: TextStyle(color: Colors.white),
+            textAlign: TextAlign.center,
+          ),
+        ],
       ),
     );
   }
